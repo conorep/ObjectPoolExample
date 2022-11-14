@@ -16,6 +16,10 @@ public class Main
     {
         EnemyPool<Enemy> bunchOfEnemies = new EnemyPool<>(5);
 
+
+        /*TODO: provide a package with just enemy class, enemyinfo singleton class, asciiart*/
+        /*TODO: write a simple driver program for console user input*/
+
         /*TODO: test pulling out enemies for fights, test putting them back, eventually provide
                                             a runtime analysis between this and not using this...?*/
 
