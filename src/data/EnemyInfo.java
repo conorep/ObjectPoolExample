@@ -13,6 +13,7 @@ public class EnemyInfo
 {
     private static EnemyInfo namesInstance;
     private List<String> names;
+    private List<String> abilities;
     private Random random = new Random();
 
     /**
@@ -21,7 +22,9 @@ public class EnemyInfo
     private EnemyInfo()
     {
         this.names = new ArrayList<>();
+        this.abilities = new ArrayList<>();
         addNames(this.names);
+        addAbilities(this.abilities);
     }
 
     /**
@@ -65,6 +68,27 @@ public class EnemyInfo
         names.add("Ventricles Girl");
         names.add("Never");
         names.add("THE FUTURE");
+    }
+
+
+    //TODO: add more abilities
+    /**
+     * This class adds all the abilities to the ability list.
+     * @param abilities abilities that will be tied to an enemy
+     */
+    private static void addAbilities(List<String> abilities)
+    {
+        abilities.add("Fall Down");
+        abilities.add("Elevate");
+        abilities.add("Go Up Down Escalator");
+        abilities.add("Wring Hands");
+        abilities.add("Stress");
+        abilities.add("Get Angered");
+        abilities.add("Do Nothing But Look Like Doing Something");
+        abilities.add("Hold Book");
+        abilities.add("Drop Book");
+        abilities.add("Open Book");
+        abilities.add("Read Graffiti Badly");
     }
 
     /**
