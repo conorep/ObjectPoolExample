@@ -2,7 +2,11 @@ import data.EnemyInfo;
 import object.Enemy;
 import pool.EnemyPool;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This is the tester class for the Object Pool.
@@ -15,8 +19,13 @@ public class Main
      * This is the 'PSVM' driver function.
      * @param args string array of arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException
     {
+        Scanner[] readerArray = new Scanner[]{new Scanner(new File("/asciiart/enemyDead.txt")),
+                new Scanner(new File("/asciiart/enemyFace.txt")),
+                new Scanner(new File("/asciiart/sword.txt")),
+                new Scanner(new File("/asciiart/swordAttack.txt"))};
+
         EnemyInfo creatorInfo = EnemyInfo.getInstance();
         EnemyPool<Enemy> bunchOfEnemies = new EnemyPool<>(5);
 
@@ -45,5 +54,10 @@ public class Main
     public void consoleDriver()
     {
         /*TODO: create the program for user interactions*/
+    }
+
+    public void asciiArtReader()
+    {
+
     }
 }
