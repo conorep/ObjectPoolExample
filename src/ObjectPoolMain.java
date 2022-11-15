@@ -1,4 +1,3 @@
-import data.EnemyInfo;
 import object.Enemy;
 import pool.EnemyPool;
 
@@ -13,6 +12,10 @@ import java.util.Scanner;
  */
 public class ObjectPoolMain
 {
+    /*test constants*/
+    public static final int COLLECTION_SIZE = 100000;
+    public static final int TOTAL_LOOPS = 1000;
+
     /**
      * This is the 'PSVM' driver function.
      * @param args string array of arguments
@@ -20,38 +23,73 @@ public class ObjectPoolMain
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-        /*0 is dead, 1 is alive, 2 is sword, 3 is sword attack*/
-        Scanner[] readerArray = new Scanner[]{
+        /*Scanner[] readerArray = new Scanner[]{
                 new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyDead.txt")),
                 new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyFace.txt")),
                 new Scanner(new File(ObjectPoolMain.asciiPathString()+"sword.txt")),
-                new Scanner(new File(ObjectPoolMain.asciiPathString()+"swordAttack.txt"))};
+                new Scanner(new File(ObjectPoolMain.asciiPathString()+"swordAttack.txt"))};*/
+
+        /* TEST POOL RUNTIME SECTION */
+        Enemy[] transferArr = new Enemy[COLLECTION_SIZE];
+
+        long startTime = System.currentTimeMillis();
+
+        EnemyPool testingPool = new EnemyPool(COLLECTION_SIZE);
+        for(int x = 0; x < TOTAL_LOOPS; x++)
+        {
+            poolTest(testingPool, transferArr);
+        }
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("ELAPSED TIME: " + elapsedTime);
+
+        /* TEST POOL MEMORY USAGE */
+        System.out.println("POOL TEST MEMORY USAGE: " +
+                ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/(1000*1000)) + "MB");
 
 
-        //TODO: RUNTIME ANALYSIS OF CREATE ALL ENEMIES IN POOL VS CREATE SAME NUMBER OF ENEMIES ONE BY ONE
+        /* KICK OFF THE PROGRAM. UNCOMMENT THIS AND SCANNER ARRAY TO RUN. */
+        /*consoleDriver(readerArray);*/
+    }
 
-    /*kick off the program*/
-        consoleDriver(readerArray);
+    /**
+     * This function checks out Enemy objects from the pool and then sends them back.
+     *      NOTE: this is a slightly imperfect test to show the large margin of difference
+     *      between instantiating new objects and simply reusing objects kept in a pool.
+     * @param transferPool pool of Enemy objects to transfer to array and back
+     * @param transferArr array used for get and return of Enemy objects
+     */
+    public static void poolTest(EnemyPool transferPool, Enemy[] transferArr)
+    {
+        for(int x = 0; x < transferPool.getCapacity(); x++)
+        {
+            transferArr[x] = transferPool.getEnemy();
+        }
+        for(int x = 0; x < transferPool.getCapacity(); x++)
+        {
+            transferPool.returnEnemyToPool(transferArr[x]);
+        }
     }
 
     /**
      * This method contains the code for the user's console interactions.
+     * @param readerArray array of scanner objects that are linked to ascii art files
+     * @throws  FileNotFoundException thrown when files can't be found
      */
-    protected static void consoleDriver(Scanner[] readerArray) throws FileNotFoundException
+    public static void consoleDriver(Scanner[] readerArray) throws FileNotFoundException
     {
         Scanner consoleHandling = new Scanner(System.in);
         Random randomDamage = new Random();
-        EnemyPool<Enemy> bunchOfEnemies = new EnemyPool<>(10);
+        EnemyPool bunchOfEnemies = new EnemyPool(20);
 
         String lineSeparator = "\n****************************************\n";
         String welcomeString = lineSeparator+"Welcome to the game!"+lineSeparator+"GAME STARTING:\n";
 
         asciiArtReader(1);
 
-        Enemy thisOne = bunchOfEnemies.fightEnemy();
-
+        Enemy thisOne = bunchOfEnemies.getEnemy();
         boolean keepPlaying = true;
-
         while(keepPlaying)
         {
             gameMenu();
@@ -65,19 +103,18 @@ public class ObjectPoolMain
                     //attack enemy with a value somewhere between 1 and 500
                     asciiArtReader(3);
                     thisOne.attackEnemy(randomDamage.nextInt(500) + 1);
-                    //todo: check for Enemy isDead! if dead, return and get new one
                     if(thisOne.isDead())
                     {
                         System.out.println("DEAD ENEMY ROLLED DOWN HILL. NEW ENEMY!");
                         bunchOfEnemies.returnEnemyToPool(thisOne);
-                        thisOne = bunchOfEnemies.fightEnemy();
+                        thisOne = bunchOfEnemies.getEnemy();
                         System.out.println(thisOne);
                     }
                 }
                 case "2" ->
                 {
                     bunchOfEnemies.returnEnemyToPool(thisOne);
-                    thisOne = bunchOfEnemies.fightEnemy();
+                    thisOne = bunchOfEnemies.getEnemy();
                     System.out.println("ENEMY RETURNED. NEW ENEMY!");
                     System.out.println(thisOne);
                 }
@@ -162,7 +199,7 @@ public class ObjectPoolMain
      */
     protected static void gameOver()
     {
-        System.out.println("\nThanks for playing. Game ended.");
+        System.out.println("\nTHANKS FOR PLAYING THIS HIGH QUALITY GAME. GAME ENDED.");
     }
 }
 
