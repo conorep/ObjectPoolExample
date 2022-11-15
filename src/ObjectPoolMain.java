@@ -43,7 +43,7 @@ public class ObjectPoolMain
         runPoolTest();
 
         /* KICK OFF THE PROGRAM. UNCOMMENT THIS AND SCANNER ARRAY TO RUN. */
-        consoleDriver();
+        /*consoleDriver();*/
     }
 
     /**
