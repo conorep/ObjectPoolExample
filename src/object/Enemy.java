@@ -1,5 +1,7 @@
 package object;
 
+import data.EnemyInfo;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  */
 public class Enemy
 {
+    private EnemyInfo enemyInfo = EnemyInfo.getInstance();
     private String name;
     private int maxHitPoints;
     private int currentHitPoints;
@@ -16,17 +19,14 @@ public class Enemy
     private List<String> abilities;
 
     /**
-     * The enemy constructor. Requires a name, max hit points, and a list of abilities.
-     * @param name what the enemy is called
-     * @param maxHitPoints maximum health points
-     * @param abilities what the enemy can do
+     * The enemy constructor. Requires a list of abilities and auto-generates a name and hit points.
      */
-    public Enemy(String name, int maxHitPoints, List<String> abilities)
+    public Enemy()
     {
-        this.name = name;
-        this.maxHitPoints = maxHitPoints;
-        this.currentHitPoints = maxHitPoints;
-        this.abilities = abilities;
+        this.name = enemyInfo.getRandomName();
+        this.maxHitPoints = enemyInfo.getRandomHitPoints();
+        this.currentHitPoints = this.maxHitPoints;
+        this.abilities = enemyInfo.getThreeAbilities();
     }
 
     /**
@@ -94,23 +94,31 @@ public class Enemy
     }
 
     /**
-     * This returns an enemy to life.
+     * This returns an enemy to life and gives it a new name and hit point value.
      */
     public void resurrectEnemy()
     {
         this.isDead = false;
+        this.name = enemyInfo.getRandomName();
+        this.maxHitPoints = enemyInfo.getRandomHitPoints();
+        this.currentHitPoints = this.maxHitPoints;
+    }
+
+    private String returnAbilities()
+    {
+        StringBuilder buildAbilities = new StringBuilder();
+        for(String ability : this.abilities)
+        {
+            buildAbilities.append(" [").append(ability).append("] ");
+        }
+        return buildAbilities.toString();
     }
 
     //TODO: fix this. it sucks.
     @Override
     public String toString()
     {
-        return "Enemy{" +
-                "name='" + name + '\'' +
-                ", maxHitPoints=" + maxHitPoints +
-                ", currentHitPoints=" + currentHitPoints +
-                ", isDead=" + isDead +
-                ", abilities=" + abilities +
-                '}';
+        return "ENEMY NAME: " + name + "\nMAX HP: " + maxHitPoints +
+                "\nCURRENT HP: " + currentHitPoints + "\nABILITIES: " + returnAbilities();
     }
 }
