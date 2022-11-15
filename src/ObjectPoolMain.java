@@ -64,7 +64,7 @@ public class ObjectPoolMain
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println("ELAPSED TIME: " + elapsedTime);
+        System.out.println("ELAPSED TIME: " + elapsedTime + "ms");
 
         /* TEST POOL MEMORY USAGE */
         System.out.println("POOL TEST MEMORY USAGE: " +

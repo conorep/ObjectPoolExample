@@ -32,7 +32,7 @@ public class ComparisonMain
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
 
-        System.out.println("ELAPSED TIME: " + elapsedTime);
+        System.out.println("ELAPSED TIME: " + elapsedTime + "ms");
 
         /* TEST REGULAR OBJECT INSTANTIATION MEMORY USAGE */
         System.out.println("COMPARISON MEMORY USAGE: " +
