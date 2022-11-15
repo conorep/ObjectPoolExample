@@ -15,6 +15,21 @@ public class ObjectPoolMain
     /*test constants*/
     public static final int COLLECTION_SIZE = 100000;
     public static final int TOTAL_LOOPS = 1000;
+    public static final  Scanner[] readerArray;
+    static
+    {
+        try
+        {
+            readerArray = new Scanner[]{
+                    new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyDead.txt")),
+                    new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyFace.txt")),
+                    new Scanner(new File(ObjectPoolMain.asciiPathString()+"sword.txt")),
+                    new Scanner(new File(ObjectPoolMain.asciiPathString()+"swordAttack.txt"))};
+        } catch (FileNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * This is the 'PSVM' driver function.
@@ -23,12 +38,19 @@ public class ObjectPoolMain
      */
     public static void main(String[] args) throws FileNotFoundException
     {
-        /*Scanner[] readerArray = new Scanner[]{
-                new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyDead.txt")),
-                new Scanner(new File(ObjectPoolMain.asciiPathString()+"enemyFace.txt")),
-                new Scanner(new File(ObjectPoolMain.asciiPathString()+"sword.txt")),
-                new Scanner(new File(ObjectPoolMain.asciiPathString()+"swordAttack.txt"))};*/
 
+        /* RUN THE OBJECT POOL TESTS (RUNTIME AND MEMORY USAGE) */
+        runPoolTest();
+
+        /* KICK OFF THE PROGRAM. UNCOMMENT THIS AND SCANNER ARRAY TO RUN. */
+        consoleDriver();
+    }
+
+    /**
+     * This function runs the pool tests.
+     */
+    public static void runPoolTest()
+    {
         /* TEST POOL RUNTIME SECTION */
         Enemy[] transferArr = new Enemy[COLLECTION_SIZE];
 
@@ -47,10 +69,6 @@ public class ObjectPoolMain
         /* TEST POOL MEMORY USAGE */
         System.out.println("POOL TEST MEMORY USAGE: " +
                 ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/(1000*1000)) + "MB");
-
-
-        /* KICK OFF THE PROGRAM. UNCOMMENT THIS AND SCANNER ARRAY TO RUN. */
-        /*consoleDriver(readerArray);*/
     }
 
     /**
@@ -74,21 +92,21 @@ public class ObjectPoolMain
 
     /**
      * This method contains the code for the user's console interactions.
-     * @param readerArray array of scanner objects that are linked to ascii art files
      * @throws  FileNotFoundException thrown when files can't be found
      */
-    public static void consoleDriver(Scanner[] readerArray) throws FileNotFoundException
+    public static void consoleDriver() throws FileNotFoundException
     {
         Scanner consoleHandling = new Scanner(System.in);
         Random randomDamage = new Random();
         EnemyPool bunchOfEnemies = new EnemyPool(20);
 
-        String lineSeparator = "\n****************************************\n";
-        String welcomeString = lineSeparator+"Welcome to the game!"+lineSeparator+"GAME STARTING:\n";
+        String lineSeparator = "\n********************\n";
+        System.out.println(lineSeparator+"Welcome to The Game!"+lineSeparator+"GAME STARTING:\n");
 
         asciiArtReader(1);
 
         Enemy thisOne = bunchOfEnemies.getEnemy();
+        System.out.println(thisOne);
         boolean keepPlaying = true;
         while(keepPlaying)
         {
@@ -105,7 +123,8 @@ public class ObjectPoolMain
                     thisOne.attackEnemy(randomDamage.nextInt(500) + 1);
                     if(thisOne.isDead())
                     {
-                        System.out.println("DEAD ENEMY ROLLED DOWN HILL. NEW ENEMY!");
+                        asciiArtReader(0);
+                        System.out.println("DEAD ENEMY ROLLED DOWN HILL. NEW ENEMY!\n");
                         bunchOfEnemies.returnEnemyToPool(thisOne);
                         thisOne = bunchOfEnemies.getEnemy();
                         System.out.println(thisOne);
@@ -115,12 +134,12 @@ public class ObjectPoolMain
                 {
                     bunchOfEnemies.returnEnemyToPool(thisOne);
                     thisOne = bunchOfEnemies.getEnemy();
-                    System.out.println("ENEMY RETURNED. NEW ENEMY!");
+                    System.out.println("ENEMY RETURNED. NEW ENEMY!\n");
                     System.out.println(thisOne);
                 }
                 case "3" ->
                 {
-                    System.out.println(thisOne);
+                    System.out.println("\nENEMY INFO:\n" + thisOne);
                 }
                 default ->
                 {
@@ -138,8 +157,10 @@ public class ObjectPoolMain
      *    1: new enemy
      *    3: sword
      *    4: attack sword
+     * @param choice int 0 - 3. chooses between files
+     * @throws FileNotFoundException exception if file not found
      */
-    protected static void asciiArtReader(int choice) throws FileNotFoundException
+    public static void asciiArtReader(int choice) throws FileNotFoundException
     {
         /*0 is dead, 1 is alive, 2 is sword, 3 is sword attack*/
         Scanner[] readerArray = new Scanner[]{
@@ -161,7 +182,7 @@ public class ObjectPoolMain
      * This reads the ASCII art text files to console.
      * @param readThisScanner the particular scanner holding a particular file.
      */
-    protected static void readFileOut(Scanner readThisScanner)
+    public static void readFileOut(Scanner readThisScanner)
     {
         while(readThisScanner.hasNextLine())
         {
@@ -172,7 +193,7 @@ public class ObjectPoolMain
     /**
      * This class prints the "game's" menu.
      */
-    protected static void gameMenu()
+    public static void gameMenu()
     {
         System.out.print("""
                 
@@ -189,17 +210,19 @@ public class ObjectPoolMain
      * This returns the local path of the Intellij instance running this process
      * @return String representation of path
      */
-    protected static String asciiPathString()
+    public static String asciiPathString()
     {
         return new File("").getAbsolutePath() + "/src/asciiart/";
     }
 
     /**
      * This prints out a game ending line.
+     * @throws FileNotFoundException exception if file not found
      */
-    protected static void gameOver()
+    public static void gameOver() throws FileNotFoundException
     {
         System.out.println("\nTHANKS FOR PLAYING THIS HIGH QUALITY GAME. GAME ENDED.");
+        asciiArtReader(2);
     }
 }
 
