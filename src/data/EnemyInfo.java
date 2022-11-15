@@ -134,7 +134,7 @@ public class EnemyInfo
         abilities.add("Ability to say 'No'");
         abilities.add("Reaches into pocket and finds a crisp $5");
         abilities.add("Once had a short conversation with former child star Haley Joel Osment");
-        abilities.add("Wishes you would just 'lighten up' once in awhile");
+        abilities.add("Wishes people would just 'lighten up' once in awhile");
         abilities.add("Question Mark Kick");
         abilities.add("Performs a slow but deliberate reenactment of Homeward Bound");
         abilities.add("Never makes eye-contact");
