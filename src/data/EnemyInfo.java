@@ -109,6 +109,19 @@ public class EnemyInfo
         return this.random.nextInt(1000) +1;
     }
 
+    /**
+     * This returns three random abilities from the ability list.
+     * @return String List with three abilities.
+     */
+    public List<String> getThreeAbilities()
+    {
+        return List.of(
+                this.abilities.get(this.random.nextInt(this.abilities.size())),
+                this.abilities.get(this.random.nextInt(this.abilities.size())),
+                this.abilities.get(this.random.nextInt(this.abilities.size()))
+        );
+    }
+
     @Override
     public String toString()
     {
