@@ -7,9 +7,9 @@ import object.Enemy;
  * @author Conor O'Brien
  * @version 1.0
  */
-public class EnemyPool<T>
+public class EnemyPool
 {
-    private ObjectPool<Enemy> objectPool;
+    private ObjectPool<Enemy> enemyPool;
 
     /**
      * This is the EnemyPool constructor.
@@ -17,7 +17,7 @@ public class EnemyPool<T>
      */
     public EnemyPool(int objectPoolSize)
     {
-        this.objectPool = new ObjectPool<>(objectPoolSize)
+        this.enemyPool = new ObjectPool<>(objectPoolSize)
         {
             @Override
             protected Enemy createObject()
@@ -28,15 +28,23 @@ public class EnemyPool<T>
     }
 
     /**
+     * This method returns the max capacity of the storage object.
+     * @return int capacity
+     */
+    public int getCapacity()
+    {
+        return enemyPool.getCapacity();
+    }
+
+    /**
      * Draw out an enemy to fight them!
      * @return Enemy object
      */
-    public Enemy fightEnemy()
+    public Enemy getEnemy()
     {
-        return objectPool.borrowObject();
+        return enemyPool.borrowObject();
     }
 
-    //TODO: if dead.... should I auto-trigger this?
     /**
      * Let an enemy return to its hole.
      * @param enemy object to return
@@ -47,13 +55,13 @@ public class EnemyPool<T>
         {
             enemy.resurrectEnemy();
         }
-        objectPool.returnObject(enemy);
+        enemyPool.returnObject(enemy);
     }
 
     @Override
     public String toString()
     {
         return "EnemyPool:\n" +
-                objectPool + "\n";
+                enemyPool + "\n";
     }
 }
