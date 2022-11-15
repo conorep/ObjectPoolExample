@@ -61,7 +61,7 @@ public abstract class ObjectPool<T>
             System.out.println("Can't add any more! This pool has a max capacity.");
         } else
         {
-            poolStorage.addFirst(object);
+            poolStorage.addLast(object);
         }
     }
 
