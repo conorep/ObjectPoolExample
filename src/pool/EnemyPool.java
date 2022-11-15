@@ -1,9 +1,6 @@
 package pool;
 
-import data.EnemyInfo;
 import object.Enemy;
-
-import java.util.List;
 
 /**
  * This class represents a pool of Enemies.
@@ -13,7 +10,6 @@ import java.util.List;
 public class EnemyPool<T>
 {
     private ObjectPool<Enemy> objectPool;
-    private EnemyInfo enemyInfo = EnemyInfo.getInstance();
 
     /**
      * This is the EnemyPool constructor.
@@ -26,10 +22,7 @@ public class EnemyPool<T>
             @Override
             protected Enemy createObject()
             {
-                /*name, hit points, list of abilities*/
-                //TODO: this needs to be dynamic-ish
-                return new Enemy(enemyInfo.getRandomName(), enemyInfo.getRandomHitPoints(),
-                        List.of("scratch", "roll", "sleep"));
+                return new Enemy();
             }
         };
     }
@@ -48,7 +41,7 @@ public class EnemyPool<T>
      * Let an enemy return to its hole.
      * @param enemy object to return
      */
-    public void returnEnemy(Enemy enemy)
+    public void returnEnemyToPool(Enemy enemy)
     {
         if(enemy.isDead())
         {
