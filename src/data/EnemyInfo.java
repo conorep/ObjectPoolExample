@@ -40,7 +40,6 @@ public class EnemyInfo
         return namesInstance;
     }
 
-    //TODO: add more names
     /**
      * This class adds all the names to the names list.
      * @param names name that will be tied to an enemy
@@ -77,6 +76,7 @@ public class EnemyInfo
         names.add("Slippery Kyle");
         names.add("Potentially used band-aid floating in the pool");
         names.add("Uncle Mitch");
+        names.add("Surprise, It's Nate!");
         names.add("Guy who won't shut up while you are trying to leave the party");
         names.add("Cellphone that has slid in-between your driver seat and center-console");
         names.add("Marcus");
@@ -88,8 +88,6 @@ public class EnemyInfo
         names.add("Two Left Socks");
     }
 
-
-    //TODO: add more abilities
     /**
      * This class adds all the abilities to the ability list.
      * @param abilities abilities that will be tied to an enemy
