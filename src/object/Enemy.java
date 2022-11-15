@@ -83,7 +83,7 @@ public class Enemy
     {
         System.out.println(this.name + " was attacked!\n"
                 + "HP before attack: " + this.currentHitPoints + "\nAttack damage: " + attackDamage
-                + "\nHealth after: " + (this.currentHitPoints - attackDamage) + "\n");
+                + "\nHealth after: " + (this.currentHitPoints - attackDamage));
         this.currentHitPoints -= attackDamage;
 
         if(currentHitPoints <= 0)
@@ -114,7 +114,6 @@ public class Enemy
         return buildAbilities.toString();
     }
 
-    //TODO: fix this. it sucks.
     @Override
     public String toString()
     {
