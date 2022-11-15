@@ -107,6 +107,40 @@ public class EnemyInfo
         abilities.add("Drop Book");
         abilities.add("Open Book");
         abilities.add("Read Graffiti Badly");
+        abilities.add("Ties shoes fast and efficiently");
+        abilities.add("Need to get your glasses or this is going to take awhile");
+        abilities.add("Order a ceasar salad");
+        abilities.add("Take Nap");
+        abilities.add("Remembers to Floss Twice Daily");
+        abilities.add("Breathe Underwater");
+        abilities.add("Never Needs to Wash Hands");
+        abilities.add("Content with all current material possessions");
+        abilities.add("Embroiders one garment");
+        abilities.add("Thinks about squirrels");
+        abilities.add("All number two's instantly converted to number one's");
+        abilities.add("Slaps previously tied-down thing and says 'That's not going anywhere'");
+        abilities.add("Just gets sick and tired of all the drama going on in the world");
+        abilities.add("Goes on a cruise");
+        abilities.add("Hammer Fists");
+        abilities.add("Shirt is on backwards");
+        abilities.add("Kneads Dough Vigorously");
+        abilities.add("Tries and Fails at re-organizing pantry");
+        abilities.add("Heat Vision");
+        abilities.add("Really Toned Shoulders");
+        abilities.add("Is totally fine to drive, actually hasn't had a beer in a couple of hours");
+        abilities.add("Likes the taste of Cilantro");
+        abilities.add("Pudding Breath");
+        abilities.add("Makes positive things happen in their life by working hard and never giving up");
+        abilities.add("Ability to say 'No'");
+        abilities.add("Reaches into pocket and finds a crisp $5");
+        abilities.add("Once had a short conversation with former child star Haley Joel Osment");
+        abilities.add("Wishes you would just 'lighten up' once in awhile");
+        abilities.add("Question Mark Kick");
+        abilities.add("Performs a slow but deliberate reenactment of Homeward Bound");
+        abilities.add("Never makes eye-contact");
+        abilities.add("Bad at lying");
+        abilities.add("Just wants everyone to get along");
+
     }
 
     /**
