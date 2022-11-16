@@ -46,46 +46,21 @@ public class EnemyInfo
      */
     private static void addNames(List<String> names)
     {
-        names.add("General Feet");
-        names.add("Medium Man");
-        names.add("Federal Friend");
-        names.add("Colonel Hand");
-        names.add("Arid Offel");
-        names.add("Nick");
-        names.add("Every Person");
-        names.add("Woah Dude");
-        names.add("Great Guy");
-        names.add("Elise Eloise");
-        names.add("Hydrangea");
-        names.add("Hydro Nicole");
-        names.add("Oh Wow");
-        names.add("Left Side");
-        names.add("For Each");
-        names.add("Jeraime");
-        names.add("Weent");
-        names.add("Back Neck");
-        names.add("Ventricles Girl");
-        names.add("Never");
-        names.add("THE FUTURE");
-        names.add("WHAM BAM Tambourine Man");
-        names.add("Butt-Cart Doggo seeking revenge");
-        names.add("Half-Empty carton of 'I can't believe it's not butter!'");
-        names.add("Literally Mel Gibson");
-        names.add("Sunday-Evening Monday-Morning Dread");
-        names.add("Two full-sized ferrets and a sleeve of Ritz crackers");
-        names.add("Slippery Kyle");
-        names.add("Potentially used band-aid floating in the pool");
-        names.add("Uncle Mitch");
-        names.add("Surprise, It's Nate!");
-        names.add("Guy who won't shut up while you are trying to leave the party");
-        names.add("Cellphone that has slid in-between your driver seat and center-console");
-        names.add("Marcus");
-        names.add("The coupons that get printed with your receipt that you are definitely going to just throw-away");
-        names.add("Local Plumber with competitive service prices");
-        names.add("Lego piece hidden in a high-pile rug");
-        names.add("Suspicious white speck on a two-week-old block of cheese");
-        names.add("The physical embodiment of having to do math in front of a group of people");
-        names.add("Two Left Socks");
+        names.addAll(List.of(
+                "General Feet", "Medium Man", "Federal Friend", "Colonel Hand", "Arid Offel", "Nick", "Every Person",
+                "Woah Dude", "Great Guy", "Elise Eloise", "Hydrangea", "Hydro Nicole", "Oh Wow", "Left Side",
+                "For Each", "Jeraime", "Weent", "Back Neck", "Ventricles Girl", "Never", "THE FUTURE",
+                "WHAM BAM Tambourine Man", "Butt-Cart Doggo seeking revenge",
+                "Half-Empty carton of 'I can't believe it's not butter!'", "Literally Mel Gibson",
+                "Sunday-Evening Monday-Morning Dread", "Two full-sized ferrets and a sleeve of Ritz crackers",
+                "Slippery Kyle", "Potentially used band-aid floating in the pool", "Uncle Mitch",
+                "Surprise, It's Nate!", "Guy who won't shut up while you are trying to leave the party",
+                "Cellphone that has slid in-between your driver seat and center-console", "Marcus",
+                "The coupons that get printed with your receipt that you are definitely going to just throw-away",
+                "Local Plumber with competitive service prices", "Lego piece hidden in a high-pile rug",
+                "Suspicious white speck on a two-week-old block of cheese",
+                "The physical embodiment of having to do math in front of a group of people", "Two Left Socks"
+        ));
     }
 
     /**
@@ -94,6 +69,9 @@ public class EnemyInfo
      */
     private static void addAbilities(List<String> abilities)
     {
+        abilities.addAll(List.of(
+
+        ));
         abilities.add("Fall Down");
         abilities.add("Elevate");
         abilities.add("Go Up Down Escalator");
