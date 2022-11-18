@@ -1,5 +1,6 @@
 import object.Enemy;
 import pool.EnemyPool;
+import object.Player;
 
 import java.io.*;
 import java.util.Random;
@@ -16,6 +17,9 @@ public class ObjectPoolMain
     public static final int COLLECTION_SIZE = 100000;
     public static final int TOTAL_LOOPS = 1000;
     public static final  Scanner[] readerArray;
+    public static final int PLAYER_HP_LOSS_RANGE = 200;
+    public static final int ENEMY_HP_LOSS_RANGE = 500;
+
     static
     {
         try
@@ -43,7 +47,7 @@ public class ObjectPoolMain
         runPoolTest();
 
         /* KICK OFF THE PROGRAM. UNCOMMENT THIS AND SCANNER ARRAY TO RUN. */
-        /*consoleDriver();*/
+//        consoleDriver();
     }
 
     /**
@@ -91,7 +95,7 @@ public class ObjectPoolMain
     }
 
     /**
-     * This method contains the code for the user's console interactions.
+     * This method contains the code for the user's console interactions and the game loop.
      * @throws  FileNotFoundException thrown when files can't be found
      */
     public static void consoleDriver() throws FileNotFoundException
@@ -99,14 +103,15 @@ public class ObjectPoolMain
         Scanner consoleHandling = new Scanner(System.in);
         Random randomDamage = new Random();
         EnemyPool bunchOfEnemies = new EnemyPool(20);
+        Player thisIsYou = new Player();
 
         String lineSeparator = "\n********************\n";
         System.out.println(lineSeparator+"Welcome to The Game!"+lineSeparator+"GAME STARTING:\n");
 
         asciiArtReader(1);
 
-        Enemy thisOne = bunchOfEnemies.getEnemy();
-        System.out.println(thisOne);
+        Enemy currentEnemy = bunchOfEnemies.getEnemy();
+        System.out.println(currentEnemy);
         boolean keepPlaying = true;
         while(keepPlaying)
         {
@@ -115,40 +120,81 @@ public class ObjectPoolMain
 
             switch (userInput)
             {
-                case "0" -> keepPlaying = false;
-                case "1" ->
+                case "0" -> //quit game
                 {
-                    //attack enemy with a value somewhere between 1 and 500
-                    asciiArtReader(3);
-                    thisOne.attackEnemy(randomDamage.nextInt(500) + 1);
-                    if(thisOne.isDead())
-                    {
-                        asciiArtReader(0);
-                        System.out.println("DEAD ENEMY ROLLED DOWN HILL. NEW ENEMY!\n");
-                        bunchOfEnemies.returnEnemyToPool(thisOne);
-                        thisOne = bunchOfEnemies.getEnemy();
-                        System.out.println(thisOne);
-                    }
+                    System.out.println("Wow. Guess you've got better things to do...?\nFINAL KILL COUNT: "
+                            + thisIsYou.getKillCount());
+                    keepPlaying = false;
                 }
-                case "2" ->
+                case "1" -> //attack enemy, get attacked
                 {
-                    bunchOfEnemies.returnEnemyToPool(thisOne);
-                    thisOne = bunchOfEnemies.getEnemy();
+                    keepPlaying = attackTime(currentEnemy, thisIsYou, randomDamage, bunchOfEnemies);
+                }
+                case "2" -> //returns enemy to pool and retrieves a new one
+                {
+                    bunchOfEnemies.returnEnemyToPool(currentEnemy);
+                    currentEnemy = bunchOfEnemies.getEnemy();
                     System.out.println("ENEMY RETURNED. NEW ENEMY!\n");
-                    System.out.println(thisOne);
+                    System.out.println(currentEnemy);
                 }
-                case "3" ->
+                case "3" -> //get enemy info
                 {
-                    System.out.println("\nENEMY INFO:\n" + thisOne);
+                    System.out.println("\nENEMY INFO:\n" + currentEnemy);
+                }
+                case "4" -> //get player info
+                {
+                    System.out.println("\nPLAYER INFO:\n" + thisIsYou);
                 }
                 default ->
                 {
-                    System.out.println("\nWRONG. YOU CAN ONLY ENTER 0, 1, 2, OR 3 IN THIS EXCITING GAME.");
+                    System.out.println("\nWRONG. YOU CAN ONLY ENTER 0, 1, 2, 3, OR 4 IN THIS EXCITING GAME.");
                     gameMenu();
                 }
             }
         }
         gameOver();
+    }
+
+    /**
+     * This function breaks out the attack code from the game console.
+     * @param currentEnemy the enemy you're fighting
+     * @param thisIsYou you as a player
+     * @param randomDamage random object for damage generation
+     * @param bunchOfEnemies pool full of enemies
+     * @return boolean false if player dies, true if player lives
+     * @throws FileNotFoundException file not found exception
+     */
+    public static boolean attackTime(Enemy currentEnemy, Player thisIsYou, Random randomDamage, EnemyPool bunchOfEnemies)
+            throws FileNotFoundException
+    {
+        //attack enemy with a value somewhere between 1 and 500
+        asciiArtReader(3);
+        currentEnemy.attackCharacter(randomDamage.nextInt(ENEMY_HP_LOSS_RANGE) + 1);
+        if(currentEnemy.isDead())
+        {
+            asciiArtReader(0);
+            System.out.println("DEAD ENEMY ROLLED DOWN HILL. PLAYER'S KILL COUNT +1. NEW ENEMY!\n");
+            System.out.println("YOUR CURRENT KILL COUNT: " + thisIsYou.setKillCount());
+            bunchOfEnemies.returnEnemyToPool(currentEnemy);
+            currentEnemy = bunchOfEnemies.getEnemy();
+            System.out.println(currentEnemy);
+        } else
+        {
+            if(currentEnemy.getAbilities().contains(thisIsYou.getAbilityWeakness()))
+            {
+                thisIsYou.attackCharacterWeakness();
+            } else {
+                thisIsYou.attackCharacter(randomDamage.nextInt(PLAYER_HP_LOSS_RANGE) + 1);
+            }
+            if(thisIsYou.isDead())
+            {
+                asciiArtReader(0);
+                System.out.println("We've had a meeting, and we all agree that it would be cool if you " +
+                        "didn't do that again.\nFINAL KILL COUNT: " + thisIsYou.getKillCount());
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -202,6 +248,7 @@ public class ObjectPoolMain
                 ~~~~1 = ATTACK ENEMY
                 ~~~~2 = RETURN ENEMY
                 ~~~~3 = ENEMY INFO
+                ~~~~4 = PLAYER INFO
                 ~~~~MAKE YOUR CHOICE:
                 #\040""");
     }
@@ -221,8 +268,8 @@ public class ObjectPoolMain
      */
     public static void gameOver() throws FileNotFoundException
     {
-        System.out.println("\nTHANKS FOR PLAYING THIS HIGH QUALITY GAME. GAME ENDED.");
         asciiArtReader(2);
+        System.out.println("\nTHANKS FOR PLAYING THIS HIGH QUALITY GAME. GAME ENDED.");
     }
 }
 
