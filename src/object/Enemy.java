@@ -1,21 +1,16 @@
 package object;
 
-import data.EnemyInfo;
-
 import java.util.List;
 
 /**
  * This class represents a unique enemy.
+ *  abilities: three special abilities that an Enemy can have. if one matches the Player character, it is used in combat
+ *      and hurts the Player object significantly
  * @author Conor O'Brien
  * @version 1.0
  */
-public class Enemy
+public class Enemy extends CharacterType
 {
-    private EnemyInfo enemyInfo = EnemyInfo.getInstance();
-    private String name;
-    private int maxHitPoints;
-    private int currentHitPoints;
-    private boolean isDead;
     private List<String> abilities;
 
     /**
@@ -23,63 +18,29 @@ public class Enemy
      */
     public Enemy()
     {
-        this.name = enemyInfo.getRandomName();
-        this.maxHitPoints = enemyInfo.getRandomHitPoints();
+        super();
+        this.name = this.characterInfo.getRandomName();
+        initializeHP();
+        this.abilities = this.characterInfo.getThreeAbilities();
+    }
+
+    /**
+     * This method initializes the Enemy object's HP randomly and sets its current HP to that value.
+     */
+    @Override
+    protected void initializeHP()
+    {
+        this.maxHitPoints = this.characterInfo.getRandomHitPoints();
         this.currentHitPoints = this.maxHitPoints;
-        this.abilities = enemyInfo.getThreeAbilities();
     }
 
     /**
-     * This getter returns an enemy name.
-     * @return enemy's name
-     */
-    public String getName()
-    {
-        return name;
-    }
-
-    /**
-     * This getter returns the maximum hit points for an enemy.
-     * @return maximum hit points of enemy
-     */
-    public int getMaxHitPoints()
-    {
-        return maxHitPoints;
-    }
-
-    /**
-     * This getter returns the current hit points for an enemy.
-     * @return current hit points
-     */
-    public int getCurrentHitPoints()
-    {
-        return currentHitPoints;
-    }
-
-    /**
-     * This getter returns the current living state of an enemy.
-     * @return true if dead, false if alive
-     */
-    public boolean isDead()
-    {
-        return isDead;
-    }
-
-    /**
-     * This getter returns a list of an enemy's abilities.
-     * @return list of abilities
-     */
-    public List<String> getAbilities()
-    {
-        return abilities;
-    }
-
-    /**
-     * This method sets the enemy's current hit points when attacked.
+     * This method sets the enemy's current hit points when attacked. It is called on the Enemy object itself.
      *  If the current points are equal to or less than 0, isDead is toggled to true.
      * @param attackDamage amount of damage taken from attack
      */
-    public void attackEnemy(int attackDamage)
+    @Override
+    public void attackCharacter(int attackDamage)
     {
         System.out.println(this.name + " was attacked!\n"
                 + "HP before attack: " + this.currentHitPoints + "\nAttack damage: " + attackDamage
@@ -94,16 +55,29 @@ public class Enemy
     }
 
     /**
+     * This getter returns a list of an enemy's abilities.
+     * @return list of abilities
+     */
+    public List<String> getAbilities()
+    {
+        return abilities;
+    }
+
+    /**
      * This returns an enemy to life and gives it a new name and hit point value.
      */
     public void resurrectEnemy()
     {
         this.isDead = false;
-        this.name = enemyInfo.getRandomName();
-        this.maxHitPoints = enemyInfo.getRandomHitPoints();
+        this.name = this.characterInfo.getRandomName();
+        this.maxHitPoints = this.characterInfo.getRandomHitPoints();
         this.currentHitPoints = this.maxHitPoints;
     }
 
+    /**
+     * This private method returns a formatted string representation of an Enemy's three abilities.
+     * @return String abilities
+     */
     private String returnAbilities()
     {
         StringBuilder buildAbilities = new StringBuilder();
@@ -117,7 +91,7 @@ public class Enemy
     @Override
     public String toString()
     {
-        return "ENEMY NAME: " + name + "\nMAX HP: " + maxHitPoints +
-                "\nCURRENT HP: " + currentHitPoints + "\nABILITIES: " + returnAbilities();
+        return " *ENEMY NAME: " + this.name + "\n *MAX HP: " + this.maxHitPoints +
+                "\n *CURRENT HP: " + this.currentHitPoints + "\n *ABILITIES: " + returnAbilities();
     }
 }
