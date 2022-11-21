@@ -1,6 +1,4 @@
-package devExamplePool;
-
-import java.io.FileNotFoundException;
+package classexample;
 
 /**
  * This is the tester class for the Object Pool developed in class.

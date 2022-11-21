@@ -1,7 +1,7 @@
-package objectPoolTests;
+package objectpooltests;
 
 import object.Enemy;
-import completedPool.EnemyPool;
+import completedpool.EnemyPool;
 import object.Player;
 
 import java.io.*;

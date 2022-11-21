@@ -1,4 +1,4 @@
-package devExamplePool;
+package classexample;
 
 /**
  * This abstract class will represent the Object Pool that is used in this project.
