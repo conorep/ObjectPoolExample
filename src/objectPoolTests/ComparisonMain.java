@@ -1,4 +1,4 @@
-package ComparisonTester;
+package objectPoolTests;
 
 import object.Enemy;
 

@@ -1,4 +1,4 @@
-package pool;
+package completedPool;
 
 import java.util.ArrayDeque;
 
@@ -66,7 +66,7 @@ public abstract class ObjectPool<T>
     }
 
     /**
-     * This abstract class adds objects to the pool. It's accessed via initialize().
+     * This abstract method adds objects to the pool. It's accessed via initialize().
      * @return T object to add to collection
      */
     protected abstract T createObject();

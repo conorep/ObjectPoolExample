@@ -1,4 +1,4 @@
-package pool;
+package completedPool;
 
 import object.Enemy;
 
