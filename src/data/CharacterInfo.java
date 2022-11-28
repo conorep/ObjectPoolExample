@@ -6,7 +6,7 @@ import java.util.Random;
 
 /**
  * This singleton class provides a random name from the names list.
- * @author Conor O'Brien
+ * @author Conor O'Brien and Nathan Arrowsmith
  * @version 1.0
  */
 public class CharacterInfo
