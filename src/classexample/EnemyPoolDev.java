@@ -17,9 +17,6 @@ public class EnemyPoolDev
     //TODO: create method for getting capacity
 
 
-    //TODO: create method for getting capacity
-
-
     //TODO: create method for getting an Enemy object from pool
 
 

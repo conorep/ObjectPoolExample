@@ -17,7 +17,7 @@ public abstract class ObjectPool<T>
      * This is our constructor. It requires an integer value of the size of the arrayDeque (stack) that we are using.
      * @param poolStorageSize int size of poolStorage
      */
-    public ObjectPool(final int poolStorageSize)
+    public ObjectPool(int poolStorageSize)
     {
         initialize(poolStorageSize);
         poolCapacity = poolStorageSize;
