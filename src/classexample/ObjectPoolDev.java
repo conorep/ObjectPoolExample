@@ -1,5 +1,7 @@
 package classexample;
 
+import java.util.ArrayDeque;
+
 /**
  * This abstract class will represent the Object Pool that is used in this project.
  * @author Conor O'Brien
@@ -17,10 +19,14 @@ public abstract class ObjectPoolDev<T>
     //TODO: create capacity getter
 
 
+    //TODO: create current 'fill level' (size)
+
+
     //TODO: create borrow object method
 
 
     //TODO: create return object method
+
 
     /**
      * This abstract method adds objects to the pool. It's accessed via initialize().
@@ -29,6 +35,5 @@ public abstract class ObjectPoolDev<T>
     protected abstract T createObject();
 
     //TODO: create initialize method (called in constructor)
-
 
 }

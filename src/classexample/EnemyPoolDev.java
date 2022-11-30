@@ -1,5 +1,6 @@
 package classexample;
 
+import completedpool.ObjectPool;
 import object.Enemy;
 
 /**
@@ -15,6 +16,9 @@ public class EnemyPoolDev
 
 
     //TODO: create method for getting capacity
+
+
+    //TODO: create method for checking current collection size
 
 
     //TODO: create method for getting an Enemy object from pool
